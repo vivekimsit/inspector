@@ -1,0 +1,28 @@
+{
+  "name": "inspector",
+  "version": "0.0.0",
+  "description": "String representation of the inbuilt and custom javascript objects.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vivekimsit/inspector.git"
+  },
+  "keywords": [
+    "nodejs",
+    "utility",
+    "web"
+  ],
+  "author": "Vivek Poddar <vivekimsit@gmail.com> (http://www.vivekpoddar.com/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vivekimsit/inspector/issues"
+  },
+  "homepage": "https://github.com/vivekimsit/inspector",
+  "devDependencies": {
+    "chai": "^1.10.0",
+    "mocha": "^2.1.0"
+  }
+}
