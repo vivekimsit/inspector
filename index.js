@@ -54,9 +54,6 @@ function printDate(obj) {
 
 
 function printArray(maxDepth, ary) {
-  if (maxDepth === 0) {
-    return '[...]';
-  }
   return '[' +
       ary.map(function(obj) {
         return print(maxDepth - 1, obj);
@@ -65,9 +62,6 @@ function printArray(maxDepth, ary) {
 
 
 function printObject(maxDepth, obj) {
-  if (maxDepth === 0) {
-    return '{...}';
-  }
   var result = [];
   var val;
   for (var key in obj) {
@@ -84,14 +78,16 @@ function print(maxDepth, val) {
       :    isNumber(val) ? printNumber(val)
       :    isBoolean(val) ? printBoolean(val)
       :    isString(val) ? printString(val)
+      :    maxDepth <= 0 ? '(...)'
       :    isDate(val) ? printDate(val)
-      :    Array.isArray(val) ? printArray(3, val)
-      :    printObject(maxDepth - 1 , val);
+      :    Array.isArray(val) ? printArray(maxDepth, val)
+      :    printObject(maxDepth , val);
 }
 
 
 module.exports = {
-  inspect: function(val) {
-    return print(3, val);
+  inspect: function(opts) {
+    var opts = opts || {};
+    return print.bind(null, opts.maxDepth || 1);
   }
 }

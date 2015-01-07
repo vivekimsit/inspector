@@ -3,7 +3,8 @@ var should = require('chai').should(),
 
 
 describe('inspect', function() {
-  var inspect = inspector.inspect;
+  var opts = {maxDepth: 2};
+  var inspect = inspector.inspect(opts);
 
   it('should stringify undefined', function() {
     inspect(undefined).should.equal('undefined');
@@ -34,5 +35,9 @@ describe('inspect', function() {
   it('should stringfy object', function() {
     var obj = {hello: 'world', foo: true};
     inspect(obj).should.equal('{"hello": "world", "foo": true}');
+  });
+
+  it('should display partially after max depth', function() {
+    inspect([1, 2, [3, 4, [5, 6]]]).should.equal('[1, 2, [3, 4, (...)]]');
   });
 });
