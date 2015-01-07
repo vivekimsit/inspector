@@ -20,4 +20,9 @@ describe('inspect', function() {
   it('should stringfy boolean', function() {
     inspect(5 === 6).should.equal('false');
   });
+
+  it('should stringfy date', function() {
+    var d = new Date();
+    inspect(d).should.equal('new Date("' + d.toISOString() + '")');
+  });
 });

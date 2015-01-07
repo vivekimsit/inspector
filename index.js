@@ -48,6 +48,11 @@ function printString(obj) {
 }
 
 
+function printDate(obj) {
+  return 'new Date("' + obj.toISOString() + '")';
+}
+
+
 function printArray(maxDepth, ary) {
   if (maxDepth === 0) {
     return '[...]';
@@ -87,17 +92,20 @@ function printObject(maxDepth, obj) {
 }
 
 
-module.exports = {
-  inspect: function(val) {
+function print(maxDepth, val) {
     return val === undefined ? 'undefined'
       :    val === null ? 'null'
       :    isNumber(val) ? printNumber(val)
       :    isBoolean(val) ? printBoolean(val)
       :    isString(val) ? printString(val)
+      :    isDate(val) ? printDate(val)
       :    Array.isArray(val) ? printArray(3, val)
       :    printObject(3, val);
-  }
-};
+}
 
-//console.log(printArray(3, [1, 'a', 3, ['b', 5, [6, true]]]));
-//console.log(printObject(3, {'a': 2, 'b': 3, 'c': {'d': {'e': 5}}}));
+
+module.exports = {
+  inspect: function(val) {
+    return print(3, val);
+  }
+}
