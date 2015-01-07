@@ -25,4 +25,14 @@ describe('inspect', function() {
     var d = new Date();
     inspect(d).should.equal('new Date("' + d.toISOString() + '")');
   });
+
+  it('should stringfy array', function() {
+    var ary = [1, 'a', true];
+    inspect(ary).should.equal('[1, "a", true]');
+  });
+
+  it('should stringfy object', function() {
+    var obj = {hello: 'world', foo: true};
+    inspect(obj).should.equal('{"hello": "world", "foo": true}');
+  });
 });

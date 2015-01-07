@@ -44,7 +44,7 @@ function printBoolean(obj) {
 
 
 function printString(obj) {
-  return String(obj).toString();
+  return JSON.stringify(String(obj));
 }
 
 
@@ -57,17 +57,10 @@ function printArray(maxDepth, ary) {
   if (maxDepth === 0) {
     return '[...]';
   }
-  var result = [];
-  ary.map(function(obj) {
-    result.push(obj === undefined ? 'undefined'
-    :         obj === null ? 'null'
-    :         isNumber(obj) ? printNumber(obj)
-    :         isBoolean(obj) ? printBoolean(obj)
-    :         isString(obj) ? printString(obj)
-    :         Array.isArray(obj) ? printArray(maxDepth - 1, obj)
-    :         obj.toString());
-  });
-  return '[' + result + ']';
+  return '[' +
+      ary.map(function(obj) {
+        return print(maxDepth - 1, obj);
+      }).join(', ') + ']';
 }
 
 
@@ -75,20 +68,13 @@ function printObject(maxDepth, obj) {
   if (maxDepth === 0) {
     return '{...}';
   }
-  var result = '{';
+  var result = [];
+  var val;
   for (var key in obj) {
-    var val = obj[key];
-    result += key + ': ';
-    result += val === undefined ? 'undefined'
-      :       val === null ? 'null'
-      :       isNumber(val) ? printNumber(val)
-      :       isBoolean(val) ? printBoolean(val)
-      :       isString(val) ? printString(val)
-      :       Array.isArray(val) ? printArray(val)
-      :       printObject(maxDepth - 1, val);
-    result += ',';
+    val = obj[key];
+    result.push(printString(key) + ': ' + print(maxDepth - 1, val));
   }
-  return result + '}';
+  return '{' + result.join(', ') + '}';
 }
 
 
@@ -100,7 +86,7 @@ function print(maxDepth, val) {
       :    isString(val) ? printString(val)
       :    isDate(val) ? printDate(val)
       :    Array.isArray(val) ? printArray(3, val)
-      :    printObject(3, val);
+      :    printObject(maxDepth - 1 , val);
 }
 
 
