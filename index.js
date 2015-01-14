@@ -24,7 +24,7 @@ function isDate(obj) {
 
 
 function isNumber(obj) {
-  return classOf(obj) == Class.NUMBER;
+  return !isNaN(obj) && classOf(obj) == Class.NUMBER;
 }
 
 
